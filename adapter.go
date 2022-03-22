@@ -17,6 +17,7 @@ package gdbadapter
 import (
 	"context"
 	"fmt"
+	"github.com/gogf/gf/v2/frame/g"
 	"runtime"
 
 	"github.com/gogf/gf/v2/database/gdb"
@@ -89,28 +90,29 @@ func NewAdapterFromOptions(adapter *Adapter) (*Adapter, error) {
 func (a *Adapter) open() error {
 	var err error
 	var db gdb.DB
+	//
+	// gdb.SetConfig(gdb.Config{
+	// 	"casbin": gdb.ConfigGroup{
+	// 		gdb.ConfigNode{
+	// 			Type:   a.DriverName,
+	// 			Link:   a.DataSourceName,
+	// 			Role:   "master",
+	// 			Weight: 100,
+	// 		},
+	// 	},
+	// })
+	// db, err = gdb.New(gdb.ConfigNode{
+	// 	Type:   a.DriverName,
+	// 	Link:   a.DataSourceName,
+	// 	Role:   "master",
+	// 	Weight: 100,
+	// })
 
-	gdb.SetConfig(gdb.Config{
-		"casbin": gdb.ConfigGroup{
-			gdb.ConfigNode{
-				Type:   a.DriverName,
-				Link:   a.DataSourceName,
-				Role:   "master",
-				Weight: 100,
-			},
-		},
-	})
-	db, err = gdb.New(gdb.ConfigNode{
-		Type:   a.DriverName,
-		Link:   a.DataSourceName,
-		Role:   "master",
-		Weight: 100,
-	})
+	// if err != nil {
+	// 	return err
+	// }
 
-	if err != nil {
-		return err
-	}
-
+	db = g.DB()
 	a.Db = db
 
 	return a.createTable()
