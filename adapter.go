@@ -88,7 +88,7 @@ func NewAdapterFromOptions(adapter *Adapter) (*Adapter, error) {
 }
 
 func (a *Adapter) open() error {
-	var err error
+	// var err error
 	var db gdb.DB
 	//
 	// gdb.SetConfig(gdb.Config{
